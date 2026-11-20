@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#044E54">
+<title>Restauración dental · Prodadent</title>
+<meta name="description" content="Restauración dental en Prodadent: resinas del color de tus dientes, cámara intraoral y trato cercano.">
+<link rel="icon" type="image/png" href="assets/icono.png?v=4">
+<link rel="apple-touch-icon" href="assets/icono.png?v=4">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,600;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#031D1E; --teal:#043f44; --gold:#CBA769; --gold-lt:#ECD9A9; --rose:#D6AF8E; --bar:#044E54;
+  --txt:#F4F1EA; --muted:#B4C8C8; --sans:'Inter',system-ui,sans-serif; --hdr:64px;
+  --grade:linear-gradient(rgba(1,12,13,.28),rgba(1,12,13,.28)),radial-gradient(ellipse 120% 90% at 50% 45%,transparent 50%,rgba(0,6,7,.5) 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--txt);font-family:var(--sans);font-weight:300;line-height:1.7;padding-top:calc(var(--hdr) + 6px);overflow-x:hidden}
+body.mo{overflow:hidden;padding-right:var(--sw,0)}
+body.mo header,body.mo #line{right:var(--sw,0)}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--ink)}
+:focus-visible{outline:2px solid var(--gold-lt);outline-offset:4px}
+section{scroll-margin-top:calc(var(--hdr) + 6px)}
+.bg-ink{background:var(--ink)}.bg-teal{background:var(--teal)}
+
+/* Cortina de entrada (transición suave al abrir la página) */
+#curtain{position:fixed;inset:0;background:var(--teal);z-index:300;pointer-events:none;animation:cu .9s .15s ease forwards}
+@keyframes cu{to{opacity:0;visibility:hidden}}
+
+/* ---------- Cabecera + línea dorada ---------- */
+header{position:fixed;top:0;left:0;right:0;height:var(--hdr);background:var(--bar);z-index:70;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 clamp(16px,4vw,56px)}
+header .logo{justify-self:center}header .logo img{height:46px;width:auto}
+.back{justify-self:start;display:inline-flex;align-items:center;gap:10px;color:#fff;font-weight:600;font-size:.88rem;border:1px solid rgba(203,167,105,.55);border-radius:99px;padding:9px 18px 9px 13px;transition:background .3s,color .3s}
+.back svg{width:18px;height:18px;fill:none;stroke:var(--gold-lt);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s,transform .3s}
+.back:hover{background:var(--gold);color:var(--ink)}.back:hover svg{stroke:var(--ink);transform:translateX(-3px)}
+header .btn{justify-self:end;padding:10px 24px;font-size:.85rem}
+@media(max-width:560px){.back span{display:none}.back{padding:11px}header .btn{padding:10px 16px}}
+#line{position:fixed;top:var(--hdr);left:0;right:0;height:6px;z-index:65;background:rgba(203,167,105,.32);--p:0%}
+#fill{position:absolute;inset:0;background:var(--gold);clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+
+/* ---------- Botones ---------- */
+.btn{display:inline-block;background:var(--ink);color:#fff;font:700 .95rem var(--sans);padding:16px 38px;border:1px solid rgba(203,167,105,.35);position:relative;overflow:hidden;cursor:pointer;
+  transition:color .4s,transform .25s cubic-bezier(.2,.8,.2,1),border-color .4s;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--gold),var(--gold-lt));transform:translateY(101%);transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:-1}
+.btn:hover{color:var(--ink);border-color:var(--gold)}.btn:hover::before{transform:none}
+.btn.solid{background:var(--teal)}
+.btn.ghost{background:transparent;border-color:rgba(203,167,105,.6)}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+
+/* ---------- Tipografía y revelados ---------- */
+.ttl{font-style:italic;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1;font-size:clamp(2.4rem,6.4vw,5.2rem)}
+.ttl.big{font-size:clamp(2.8rem,9vw,7.6rem)}
+.ttl.sm{font-size:clamp(1.9rem,3.8vw,3rem)}
+.ln{display:block;overflow:hidden;padding-bottom:.08em}
+.ln>span{display:block;transform:translateY(112%);transition:transform .85s cubic-bezier(.2,.8,.2,1)}
+.txt.in .ln>span{transform:none}
+.fd{opacity:0;transform:translateY(22px);transition:opacity .7s .05s,transform .7s .05s cubic-bezier(.2,.8,.2,1)}
+.txt.in .fd{opacity:1;transform:none}
+.txt.in .fd.d2{transition-delay:.15s}
+.rv{opacity:0;transform:translateY(32px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.06s}.rv.d2{transition-delay:.12s}.rv.d3{transition-delay:.18s}
+.eyebrow{font-style:italic;font-weight:600;color:var(--gold);font-size:.95rem;margin-bottom:14px;display:block}
+
+/* ---------- Hero con imagen ---------- */
+.pane{position:relative;overflow:hidden;background:linear-gradient(135deg,#065a61,#031D1E)}
+.pane img{position:absolute;inset:-17% 0;width:100%;height:134%;object-fit:cover;will-change:transform}
+.pane .zoom{position:absolute;inset:0}
+.hero{height:calc(100vh - var(--hdr) - 6px);min-height:560px}
+.hero .zoom{opacity:0;transition:opacity 1.6s ease;animation:kb 24s ease-in-out infinite alternate}
+.hero.in .zoom{opacity:1}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.1) translate(-1.5%,-1%)}}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,29,30,.38),rgba(3,29,30,0) 45%),linear-gradient(to top,rgba(3,29,30,.55),rgba(3,29,30,0) 38%),var(--grade)}
+.hero .copy{position:absolute;z-index:2;left:clamp(20px,4vw,56px);right:clamp(20px,4vw,56px);bottom:clamp(30px,6vw,80px);max-width:min(980px,92vw);text-shadow:0 2px 16px rgba(3,29,30,.55)}
+.hero .copy p{color:#e9f0f0;font-size:clamp(1rem,1.5vw,1.15rem);margin:22px 0 28px;max-width:620px}
+.hint{position:absolute;z-index:3;bottom:26px;right:clamp(20px,4vw,56px);width:1px;height:60px;background:linear-gradient(var(--gold),transparent);transform-origin:top;animation:drip 2.2s infinite}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+/* Frase que se enciende al hacer scroll */
+.lit{max-width:1180px;margin:auto;padding:clamp(90px,14vw,190px) clamp(20px,5vw,60px)}
+.lit p{font-style:italic;font-weight:700;font-size:clamp(1.7rem,4.2vw,3.5rem);line-height:1.25}
+.lw{color:rgba(244,241,234,.14);transition:color .35s}
+.lw.on{color:var(--txt)}.lw.gd.on{color:var(--gold)}
+
+/* ---------- Video con botón de play ---------- */
+.vid{padding-bottom:clamp(70px,9vw,130px)}
+.vhead{max-width:1180px;margin:0 auto;padding:0 clamp(20px,5vw,60px) 34px}
+.vframe{position:relative;width:100%;aspect-ratio:16/9;max-height:92vh;overflow:hidden;background:#000;clip-path:inset(10% 5% 10% 5%);transition:clip-path 1.2s cubic-bezier(.7,0,.2,1)}
+.vframe.in{clip-path:inset(0)}
+.vframe video,.vframe .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+/* Reproductor de YouTube dentro de la página */
+.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:2}
+.vframe.playing .poster{opacity:0;transition:opacity .4s}
+.vframe::after{content:"";position:absolute;inset:0;pointer-events:none;background:var(--grade);transition:opacity .6s}
+.vframe.playing::after{opacity:0}
+.play{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;border-radius:50%;border:0;background:var(--gold);cursor:pointer;display:grid;place-items:center;z-index:3;
+  transition:transform .35s,opacity .4s,background .3s}
+.play::before{content:"";position:absolute;inset:-12px;border-radius:50%;border:1px solid rgba(236,217,168,.6);animation:ring 2.2s ease-out infinite}
+@keyframes ring{from{transform:scale(.85);opacity:1}to{transform:scale(1.5);opacity:0}}
+.play svg{width:34px;height:34px;fill:var(--ink);margin-left:5px}
+.play:hover{transform:scale(1.08);background:var(--gold-lt)}
+.vframe.playing .play{opacity:0;pointer-events:none}
+.vframe.nov .play{display:none}
+.vframe.nov::before{content:"El video estará disponible muy pronto";position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);z-index:2;font-style:italic}
+
+/* ---------- Qué incluye ---------- */
+.pad{padding:clamp(80px,11vw,150px) clamp(20px,5vw,60px)}
+.wrap{max-width:1200px;margin:auto}
+.cards{margin:48px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px}
+.card{position:relative;padding:38px 30px;background:rgba(3,29,30,.5);border:1px solid rgba(203,167,105,.25);overflow:hidden;transition:transform .25s,border-color .4s;transform-style:preserve-3d}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),rgba(203,167,105,.18),transparent 65%);opacity:0;transition:opacity .4s}
+.card:hover{border-color:rgba(203,167,105,.6)}.card:hover::before{opacity:1}
+.card i{display:block;font-style:normal;color:var(--gold);font-weight:300;font-size:2.4rem;line-height:1;margin-bottom:16px}
+.card h3{font-style:italic;font-weight:800;text-transform:uppercase;font-size:1.2rem;margin-bottom:10px;position:relative}
+.card p{color:var(--muted);position:relative;font-size:.96rem}
+
+/* ---------- Señales + llamada a la acción ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,100px);align-items:start}
+.checks{list-style:none;display:grid;gap:16px;margin-top:34px}
+.checks li{position:relative;padding-left:38px;color:var(--txt)}
+.checks li::before{content:"✓";position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:grid;place-items:center;font-size:.85rem;font-style:normal}
+.cta{background:var(--teal);border:1px solid rgba(203,167,105,.35);padding:clamp(28px,4vw,46px)}
+.cta p{color:var(--muted);margin:16px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chips a{border:1px solid rgba(203,167,105,.45);padding:8px 20px;border-radius:99px;font-size:.85rem;font-weight:400;transition:background .3s,color .3s,transform .3s}
+.chips a:hover{background:var(--gold);color:var(--ink);transform:translateY(-2px)}
+.otras{margin-top:clamp(50px,7vw,90px)}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+
+footer{border-top:1px solid rgba(203,167,105,.25);padding:44px clamp(20px,5vw,60px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;color:var(--muted);font-size:.88rem}
+footer img{height:54px}
+
+/* ---------- Ventana emergente de agenda ---------- */
+form{display:grid;gap:20px;position:relative}
+.f{position:relative}
+.f input,.f select{width:100%;background:none;border:0;border-bottom:1px solid rgba(244,241,234,.35);color:var(--txt);padding:24px 0 9px;font:400 1rem var(--sans);border-radius:0;transition:border-color .3s}
+.f select option{background:var(--ink)}
+.f label{position:absolute;left:0;top:2px;font-size:.74rem;color:var(--gold-lt);pointer-events:none}
+/* Texto guía en gris: se ve mientras el campo está vacío y desaparece al escribir */
+.f input::placeholder{color:rgba(244,241,234,.36);font-weight:300;opacity:1;transition:color .3s}
+.f input:focus::placeholder{color:rgba(244,241,234,.24)}
+.f .pre{position:absolute;left:0;bottom:7px;padding:3px 12px;border:1px solid rgba(203,167,105,.45);color:var(--gold-lt);font-size:.92rem;line-height:1.5;pointer-events:none;background:rgba(3,29,30,.35)}
+.f.tel input{padding-left:78px;padding-top:32px}
+
+.f input:focus,.f select:focus{outline:none;border-color:var(--gold)}
+.f::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;background:linear-gradient(90deg,var(--gold),var(--gold-lt));transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.f:focus-within::after{transform:scaleX(1)}
+form .btn{justify-self:start;margin-top:10px}
+.ok{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;text-align:center;gap:14px;background:var(--teal);opacity:0;pointer-events:none;transition:opacity .6s}
+form.sent .ok{opacity:1;pointer-events:auto}
+form.sent>.f,form.sent>.btn{visibility:hidden}
+.ok svg{width:72px;height:72px;stroke:var(--gold);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.ok circle{stroke-dasharray:170;stroke-dashoffset:170}.ok path{stroke-dasharray:50;stroke-dashoffset:50}
+form.sent .ok circle{animation:dr 1s .1s forwards}form.sent .ok path{animation:dr .6s .9s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+#modal{position:fixed;inset:0;z-index:90;display:flex;padding:20px;background:rgba(2,16,17,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;visibility:hidden;transition:opacity .35s,visibility .35s;overflow-y:auto;overscroll-behavior:contain}
+#modal.open{opacity:1;visibility:visible}
+.mcard{position:relative;width:min(470px,100%);margin:auto;background:var(--teal);border:1px solid rgba(203,167,105,.4);padding:48px 36px 36px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);transform:translateY(26px) scale(.97);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+#modal.open .mcard{transform:none}
+.mx{position:absolute;top:12px;right:12px;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--gold);background:var(--ink);cursor:pointer;display:grid;place-items:center;z-index:3;transition:background .3s,transform .3s}
+.mx svg{width:20px;height:20px;stroke:var(--gold-lt);stroke-width:2.4;stroke-linecap:round;fill:none;transition:stroke .3s}
+.mx:hover{background:var(--gold);transform:rotate(90deg)}.mx:hover svg{stroke:var(--ink)}
+.mcard .ttl{padding-right:52px}
+.mcard .mp{color:var(--muted);margin-top:-6px}
+@media(max-width:520px){.mcard{padding:46px 22px 28px}}
+
+#cur{position:fixed;width:36px;height:36px;border:1px solid var(--gold);border-radius:50%;pointer-events:none;z-index:95;transform:translate(-50%,-50%);opacity:0;transition:width .3s,height .3s,background .3s,opacity .4s}
+#cur.on{opacity:1}#cur.big{width:80px;height:80px;background:rgba(203,167,105,.12)}
+@media(hover:none){#cur{display:none}}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important}
+  .ln>span,.fd,.rv{opacity:1;transform:none}.hero .zoom{opacity:1}.vframe{clip-path:none}
+}
+</style>
+</head>
+<body>
+<div id="curtain" aria-hidden="true"></div>
+<div id="cur"></div>
+
+<header>
+  <a href="index.html" class="back" data-back aria-label="Volver al lugar donde estabas">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M11 5l-7 7 7 7"/></svg><span>Volver</span>
+  </a>
+  <a href="index.html" class="logo" data-back aria-label="Prodadent"><img src="assets/logo.png" alt="Prodadent odontología integral"></a>
+  <a href="index.html#agendar" class="btn solid" data-agendar>Agendar</a>
+</header>
+<div id="line"><div id="fill"></div></div>
+
+<!-- HERO: imagen assets/restauracionnav.jpg -->
+<section class="pane hero" id="top">
+  <div class="zoom"><img id="hImg" data-px=".18" alt="" onerror="this.style.display='none'"></div>
+  <div class="copy txt">
+    <span class="eyebrow fd" id="eb"></span>
+    <h1 class="ttl big"><span class="ln"><span id="tt"></span></span></h1>
+    <p class="fd d2" id="ds"></p>
+    <div class="acts fd d2">
+      <a href="index.html#agendar" class="btn" data-agendar>Agendar</a>
+      <a href="#video" class="btn ghost">Ver video</a>
+    </div>
+  </div>
+  <div class="hint"></div>
+</section>
+
+<!-- FRASE que se enciende -->
+<div class="bg-ink"><div class="lit" id="lit"><p id="fr"></p></div></div>
+
+<!-- VIDEO con sonido: YouTube (P.youtube) o, si no hay, el archivo P.videoSrc -->
+<section class="vid bg-ink" id="video">
+  <div class="vhead txt"><span class="eyebrow fd" id="vEb"></span><h2 class="ttl sm"><span class="ln"><span id="vTt"></span></span></h2></div>
+  <div class="vframe" id="vframe">
+    <video id="vid" playsinline preload="metadata"></video>
+    <button class="play" id="play" type="button" aria-label="Reproducir video"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg></button>
+  </div>
+</section>
+
+<!-- QUÉ INCLUYE -->
+<section class="pad bg-teal" id="incluye">
+  <div class="wrap">
+    <div class="txt"><span class="eyebrow fd" id="iEb"></span><h2 class="ttl"><span class="ln"><span id="iTt"></span></span></h2></div>
+    <div class="cards" id="cards"></div>
+  </div>
+</section>
+
+<!-- SEÑALES + LLAMADA A LA ACCIÓN -->
+<section class="pad bg-ink" id="agenda">
+  <div class="wrap">
+    <div class="two">
+      <div>
+        <div class="txt"><span class="eyebrow fd">Señales</span><h2 class="ttl sm"><span class="ln"><span id="sTt"></span></span></h2></div>
+        <ul class="checks rv" id="checks"></ul>
+      </div>
+      <div class="cta rv d1">
+        <h2 class="ttl sm" id="cTt"></h2>
+        <p id="cTx"></p>
+        <div class="acts">
+          <a href="index.html#agendar" class="btn" data-agendar>Agendar</a>
+          <a href="index.html" class="btn ghost" data-back>← Volver a donde estabas</a>
+        </div>
+      </div>
+    </div>
+    <div class="otras txt">
+      <span class="eyebrow fd">Explora más</span>
+      <h2 class="ttl sm"><span class="ln"><span>Otras especialidades</span></span></h2>
+      <div class="chips fd d2" id="chips"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-teal"><img src="assets/logo.png" alt="Prodadent"><span>© 2026 Prodadent · Odontología integral</span><span>Instagram · Facebook · WhatsApp</span></footer>
+
+<!-- VENTANA EMERGENTE DE AGENDA -->
+<div id="modal" aria-hidden="true">
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="mt">
+    <button class="mx" id="mx" type="button" aria-label="Cerrar ventana"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+    <form id="mform" class="fm" novalidate>
+      <div><span class="eyebrow">Agenda tu cita</span><h2 class="ttl" id="mt" style="font-size:clamp(1.7rem,6vw,2.2rem)">Déjanos tus datos</h2></div>
+      <p class="mp">Te contactaremos para confirmar el día y la hora.</p>
+      <div class="ok" role="status"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="27"/><path d="M28 41l9 9 16-18"/></svg>
+        <h3 class="ttl" style="font-size:1.8rem">¡Gracias, <span class="who"></span>!</h3><p style="color:var(--muted);max-width:320px">Recibimos tu solicitud. Te escribiremos pronto para confirmar tu cita.</p></div>
+    </form>
+  </div>
+</div>
+<script src="assets/formulario.js"></script>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const clamp=(v,a=0,b=1)=>Math.min(b,Math.max(a,v));
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let mx=0,my=0;
+
+/* =====================================================================
+   CONTENIDO DE LA PÁGINA  ·  Para otra especialidad: copia este archivo,
+   renómbralo y cambia SOLO este bloque (slug, imagen y video).
+   ===================================================================== */
+const P={
+  slug:'restauracion',
+  imagen:'assets/restauracionnav.jpg',
+  youtube:'XM7Ck3So2Yk',            /* ID del video de YouTube (https://youtu.be/XM7Ck3So2Yk). Déjalo vacío '' para usar videoSrc */
+  videoSrc:'assets/restauracionnav.mp4',
+  servicio:'Restauración',
+  eyebrow:'Especialidad',
+  titulo:'Restauración dental',
+  descripcion:'La restauración repara los dientes dañados por caries, fracturas o desgaste, devolviéndoles su forma, su función y su color natural. En Prodadent trabajamos con resinas de alta calidad y cámara intraoral, cuidando cada detalle para que el resultado se vea y se sienta como tu propio diente.',
+  frase:'Un diente restaurado a tiempo recupera su fuerza, protege tu sonrisa y evita tratamientos más complejos.',
+  video:{eyebrow:'En video',titulo:'Así es tu restauración'},
+  incluye:{eyebrow:'Paso a paso',titulo:'¿Qué incluye?',items:[
+    ['Diagnóstico','Revisamos el diente con cámara intraoral y te mostramos en pantalla qué tiene y cómo lo vamos a tratar.'],
+    ['Retiro de caries','Eliminamos solo el tejido dañado, con anestesia local, para conservar la mayor cantidad posible de diente sano.'],
+    ['Restauración','Reconstruimos el diente con resina del color exacto de tus dientes, modelando su forma natural.'],
+    ['Ajuste y pulido','Revisamos tu mordida, pulimos la superficie y te damos indicaciones para cuidar tu restauración.']]},
+  senales:{titulo:'¿Cuándo agendarla?',items:[
+    'Ves un hueco, una mancha oscura o un diente con caries.',
+    'Sientes dolor o sensibilidad al frío, al calor o al masticar.',
+    'Tienes un diente fracturado, astillado o desgastado.',
+    'Una restauración antigua se despegó o se oscureció en el borde.']},
+  cta:{titulo:'Agenda tu restauración',texto:'Déjanos tus datos y te contactaremos para confirmar el día y la hora que mejor te acomoden.'}
+};
+/* Lista de todas las especialidades (la usan el formulario y los enlaces de abajo) */
+const ESP=[['limpieza','Limpieza'],['restauracion','Restauración'],['estetica','Odontología estética'],['ortodoncia','Ortodoncia'],['implantologia','Implantología'],
+ ['periodoncia','Periodoncia'],['endodoncia','Endodoncia'],['cirugia','Cirugía'],['rehabilitacion','Rehabilitación'],['aislamiento','Aislamiento'],['blanqueamiento','Blanqueamiento']];
+
+/* ---------- Pintar el contenido ---------- */
+document.title=P.titulo+' · Prodadent';
+$('#hImg').src=P.imagen;
+$('#eb').textContent=P.eyebrow;$('#tt').textContent=P.titulo;$('#ds').textContent=P.descripcion;$('#fr').textContent=P.frase;
+$('#vEb').textContent=P.video.eyebrow;$('#vTt').textContent=P.video.titulo;
+$('#iEb').textContent=P.incluye.eyebrow;$('#iTt').textContent=P.incluye.titulo;
+$('#cards').innerHTML=P.incluye.items.map(([t,d],i)=>`<article class="card rv d${Math.min(i,3)}"><i>0${i+1}</i><h3>${t}</h3><p>${d}</p></article>`).join('');
+$('#sTt').textContent=P.senales.titulo;
+$('#checks').innerHTML=P.senales.items.map(t=>`<li>${t}</li>`).join('');
+$('#cTt').textContent=P.cta.titulo;$('#cTx').textContent=P.cta.texto;
+$('#chips').innerHTML=ESP.filter(e=>e[0]!==P.slug).map(([k,t])=>`<a href="index.html#${k}">${t}</a>`).join('');
+const vid=$('#vid');
+
+/* ---------- Volver al mismo lugar donde estabas ----------
+   El inicio nos manda con ?y=<posición>. Al volver, la página principal te deja en esa posición exacta. */
+const yPrev=new URLSearchParams(location.search).get('y');
+const backURL=`index.html${yPrev?`?y=${parseInt(yPrev,10)||0}`:''}#${P.slug}`;
+$$('[data-back]').forEach(a=>a.href=backURL);
+$$('[data-agendar]').forEach(a=>a.href=`index.html#agendar`);
+
+/* ---------- Video con sonido: YouTube incrustado (o archivo mp4 si no hay ID) ---------- */
+const vframe=$('#vframe'),play=$('#play');
+let yt=null,ytListo=false,enPantalla=false;
+if(P.youtube){
+  vid.remove();
+  /* Portada: la miniatura de YouTube en máxima calidad (si no existe, usa la de calidad alta) */
+  const img=document.createElement('img');
+  img.className='poster';img.alt='';img.src=`https://i.ytimg.com/vi/${P.youtube}/maxresdefault.jpg`;
+  img.onerror=()=>{img.onerror=null;img.src=`https://i.ytimg.com/vi/${P.youtube}/hqdefault.jpg`};
+  vframe.prepend(img);
+  play.addEventListener('click',()=>{
+    vframe.classList.add('playing');
+    if(yt&&ytListo){yt.playVideo();return}
+    if(window.YT&&YT.Player){crearYT();return}
+    window.onYouTubeIframeAPIReady=crearYT;
+    if(!document.getElementById('ytapi')){const sc=document.createElement('script');sc.id='ytapi';sc.src='https://www.youtube.com/iframe_api';document.head.appendChild(sc)}
+  });
+}else{
+  vid.src=`${P.videoSrc}#t=0.1`;
+  play.addEventListener('click',()=>{vid.muted=false;vid.controls=true;vid.play().catch(()=>vframe.classList.add('nov'))});
+  vid.addEventListener('play',()=>vframe.classList.add('playing'));
+  vid.addEventListener('pause',()=>vframe.classList.remove('playing'));
+  vid.addEventListener('ended',()=>{vid.currentTime=0;vframe.classList.remove('playing')});
+  vid.addEventListener('error',()=>vframe.classList.add('nov'));
+}
+function crearYT(){
+  if(yt)return;
+  const d=document.createElement('div');d.id='ytp';vframe.appendChild(d);
+  yt=new YT.Player('ytp',{
+    videoId:P.youtube,
+    host:'https://www.youtube-nocookie.com',
+    playerVars:{autoplay:1,playsinline:1,rel:0,modestbranding:1,controls:1,iv_load_policy:3},
+    events:{
+      onReady:e=>{ytListo=true;if(enPantalla)e.target.playVideo();else e.target.pauseVideo()},
+      onStateChange:e=>{if(e.data===YT.PlayerState.ENDED){e.target.seekTo(0);e.target.pauseVideo();vframe.classList.remove('playing')}}
+    }
+  });
+}
+/* Solo se reproduce mientras está en pantalla: si sigues bajando (o subes), se pausa */
+new IntersectionObserver(es=>es.forEach(e=>{
+  enPantalla=e.isIntersecting;
+  if(enPantalla)return;
+  if(yt&&ytListo&&yt.getPlayerState&&yt.getPlayerState()===1)yt.pauseVideo();
+  if(!P.youtube&&!vid.paused)vid.pause();
+}),{threshold:.35}).observe(vframe);
+
+/* ---------- Scroll: progreso, frase que se enciende, parallax ---------- */
+const line=$('#line'),lit=$('#lit p'),hero=$('#top'),hImg=$('#hImg');
+lit.innerHTML=lit.textContent.trim().split(' ').map(w=>`<span class="lw${/fuerza|sonrisa|restaurado|protege/i.test(w)?' gd':''}">${w}</span>`).join(' ');
+const lw=$$('.lw');
+function update(){
+  const y=scrollY,vh=innerHeight,max=document.documentElement.scrollHeight-vh;
+  const lr=lit.getBoundingClientRect(),hr=hero.getBoundingClientRect(),vr=vframe.getBoundingClientRect();
+  line.style.setProperty('--p',(clamp(y/max)*100)+'%');
+  const lp=clamp((vh*.95-lr.top)/(lr.height+vh*.3));
+  lw.forEach((w,i)=>w.classList.toggle('on',i<lp*lw.length));
+  if(!reduce){
+    if(hr.bottom>-300)hImg.style.transform=`translate3d(${mx*-14}px,${(hr.top+hr.height/2-vh/2)*-.18+my*-8}px,0) scale(1.04)`;
+    const vm=vframe.querySelector('.poster,video');if(vm&&!vframe.classList.contains('playing')){const pr=clamp((vh-vr.top)/(vh+vr.height));vm.style.transform=`scale(${1.12-.12*pr})`}
+  }
+}
+let tick=false;
+addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{update();tick=false})}},{passive:true});
+addEventListener('resize',update);addEventListener('load',update);
+update();
+
+/* ---------- Revelados al entrar en pantalla ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.01,rootMargin:'0px 0px 22% 0px'});
+setTimeout(()=>$$('.rv,.txt,.hero,.vframe').forEach(el=>io.observe(el)),450);
+
+/* ---------- Cursor y tarjetas con luz ---------- */
+const cur=$('#cur');let cx=0,cy=0,tx=0,ty=0;
+addEventListener('mousemove',e=>{cur.classList.add('on');tx=e.clientX;ty=e.clientY;mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1},{passive:true});
+(function f(){cx+=(tx-cx)*.16;cy+=(ty-cy)*.16;cur.style.left=cx+'px';cur.style.top=cy+'px';requestAnimationFrame(f)})();
+document.addEventListener('mouseover',e=>cur.classList.toggle('big',!!e.target.closest('a,button,.card')));
+$$('.card').forEach(el=>{
+  el.addEventListener('mousemove',e=>{const b=el.getBoundingClientRect(),x=e.clientX-b.left,y=e.clientY-b.top;
+    el.style.setProperty('--mx',x+'px');el.style.setProperty('--my',y+'px');el.style.transition='transform .1s';
+    el.style.transform=`perspective(800px) rotateY(${(x/b.width-.5)*8}deg) rotateX(${-(y/b.height-.5)*8}deg) translateY(-4px)`});
+  el.addEventListener('mouseleave',()=>{el.style.transition='transform .5s';el.style.transform=''});
+});
+
+/* ---------- Ventana emergente de agenda (no te mueve de lugar) ---------- */
+const opts='<option>Valoración general</option>'+ESP.map(([,t])=>`<option>${t}</option>`).join('');
+const modal=$('#modal'),mform=$('#mform');
+mform.querySelector('.ok').insertAdjacentHTML('beforebegin',`
+  <div class="f"><input id="mnom" name="nombre" placeholder="Ej. María Pérez" autocomplete="name" required><label for="mnom">Nombre completo</label></div>
+  <div class="f"><input id="mmail" name="correo" type="email" placeholder="tu@email.com" autocomplete="email" inputmode="email" required><label for="mmail">Correo electrónico</label></div>
+  <div class="f tel"><span class="pre">+593</span><input id="mtel" name="telefono" type="tel" placeholder="99 999 9999" autocomplete="tel-national" inputmode="tel" required><label for="mtel">Número de teléfono</label></div>
+  <div class="f"><select id="msrv" name="servicio">${opts}</select><label for="msrv">Servicio de interés</label></div>
+  <button class="btn" type="submit">Solicitar cita</button>`);
+let lastBtn=null,savedY=0;
+function openModal(btn){
+  lastBtn=btn;savedY=scrollY;
+  document.documentElement.style.setProperty('--sw',(innerWidth-document.documentElement.clientWidth)+'px');
+  document.body.classList.add('mo');
+  mform.elements.servicio.value=P.servicio;
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+  setTimeout(()=>mform.elements.nombre.focus({preventScroll:true}),380);
+}
+function closeModal(){
+  if(!modal.classList.contains('open'))return;
+  modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('mo');
+  setTimeout(()=>{mform.reset();mform.classList.remove('sent')},450);
+  if(lastBtn)lastBtn.focus({preventScroll:true});
+  if(Math.abs(scrollY-savedY)>2)scrollTo({top:savedY,behavior:'instant'});
+}
+document.addEventListener('click',e=>{const a=e.target.closest('[data-agendar]');if(a){e.preventDefault();openModal(a)}});
+$('#mx').addEventListener('click',closeModal);
+modal.addEventListener('mousedown',e=>{if(e.target===modal)closeModal()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+modal.addEventListener('keydown',e=>{
+  if(e.key!=='Tab')return;
+  const els=[...modal.querySelectorAll('button,input,select')].filter(x=>x.offsetParent&&getComputedStyle(x).visibility!=='hidden');
+  if(!els.length)return;const first=els[0],last=els[els.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+});
+mform.addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(mform.dataset.busy)return;
+  const nom=mform.elements.nombre,mail=mform.elements.correo,tel=mform.elements.telefono;
+  const bad=[nom,mail,tel].find(i=>!i.value.trim()||!i.checkValidity()||(i===tel&&tel.value.replace(/\D/g,'').length<7));
+  if(bad){bad.focus();bad.style.borderColor='#e07a6b';setTimeout(()=>bad.style.borderColor='',1800);return}
+  mform.dataset.busy=1;
+  const ok=await enviarCita(mform);
+  delete mform.dataset.busy;
+  if(!ok)return;
+  mform.querySelector('.who').textContent=nom.value.trim().split(' ')[0];
+  mform.classList.add('sent');setTimeout(closeModal,2600);
+});
+</script>
+</body>
+</html>
